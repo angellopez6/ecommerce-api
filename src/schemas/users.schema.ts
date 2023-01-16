@@ -1,8 +1,9 @@
 import Joi from "joi";
+import { stringPassswordError, strongPasswordRegex } from "utils/constants/auth";
 
 const id = Joi.number().integer();
 const email = Joi.string().email();
-const password = Joi.string();
+const password = Joi.string().pattern(new RegExp(strongPasswordRegex)).message(stringPassswordError);
 const role = Joi.string();
 
 const getUserSchema = Joi.object({
@@ -17,7 +18,6 @@ const createUserSchema = Joi.object({
 
 const updateUserSchema = Joi.object({
   email,
-  password,
   role,
 });
 

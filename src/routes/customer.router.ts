@@ -1,11 +1,14 @@
-import validatorHandler from "@app/middlewares/validator.handler";
+import validatorHandler from "../middlewares/validator.handler";
 import exrpess from "express";
-import CustomerService from "@app/services/customer.service";
+import CustomerService from "../services/customer.service";
 import {
   createCustomerSchema,
   getCustomerSchema,
   updateCustomerSchema,
-} from "@app/schemas/customers.schema";
+} from "../schemas/customers.schema";
+import passport from "passport";
+import { checkRoles } from "@app/middlewares/auth.handler";
+import { Trole } from "../types/Troles";
 
 const router = exrpess.Router();
 const service = new CustomerService();
@@ -18,17 +21,24 @@ const CUSTOMER_ROUTES = {
   DeleteOne: "/:id",
 };
 
-router.get(CUSTOMER_ROUTES.findAll, async (req, res, next) => {
-  try {
-    const customers = await service.find();
-    res.status(200).json(customers);
-  } catch (err) {
-    next(err);
+router.get(
+  CUSTOMER_ROUTES.findAll,
+  passport.authenticate("jwt", { session: false }),
+  checkRoles(Trole.admin),
+  async (req, res, next) => {
+    try {
+      const customers = await service.find();
+      res.status(200).json(customers);
+    } catch (err) {
+      next(err);
+    }
   }
-});
+);
 
 router.get(
   CUSTOMER_ROUTES.findOne,
+    passport.authenticate("jwt", { session: false }),
+  checkRoles(Trole.admin),
   validatorHandler(getCustomerSchema, "params"),
   async (req, res, next) => {
     try {
@@ -43,6 +53,8 @@ router.get(
 
 router.post(
   CUSTOMER_ROUTES.createOne,
+    passport.authenticate("jwt", { session: false }),
+  checkRoles(Trole.admin),
   validatorHandler(createCustomerSchema, "body"),
   async (req, res, next) => {
     try {
@@ -57,6 +69,8 @@ router.post(
 
 router.patch(
   CUSTOMER_ROUTES.updateOne,
+    passport.authenticate("jwt", { session: false }),
+  checkRoles(Trole.admin),
   validatorHandler(getCustomerSchema, "params"),
   validatorHandler(updateCustomerSchema, "body"),
   async (req, res, next) => {
@@ -73,6 +87,8 @@ router.patch(
 
 router.delete(
   CUSTOMER_ROUTES.DeleteOne,
+    passport.authenticate("jwt", { session: false }),
+  checkRoles(Trole.admin),
   validatorHandler(getCustomerSchema, "params"),
   async (req, res, next) => {
     try {

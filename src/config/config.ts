@@ -12,6 +12,11 @@ const {
   NODE_DB_PORT = "",
   HOST = "http://localhost",
   APP_VERSION = "",
+  JWT_SECRET,
+  AUTH_MAIL_USER,
+  AUTH_MAIL_PASSWORD,
+  AUTH_MAIL_HOST,
+  AUTH_MAIL_PORT,
 } = process.env;
 
 const conf: Tenviroment = {
@@ -24,6 +29,11 @@ const conf: Tenviroment = {
   dbPort: NODE_DB_PORT,
   HOST,
   APP_VERSION,
+  jwtSecret: JWT_SECRET,
+  authMailUser: AUTH_MAIL_USER,
+  authMailPassword: AUTH_MAIL_PASSWORD,
+  authMailHost: AUTH_MAIL_HOST,
+  authMailPort: AUTH_MAIL_PORT,
 };
 
 export default conf;

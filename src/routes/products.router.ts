@@ -8,6 +8,9 @@ import {
 import express from "express";
 import ProductsService from "../services/product.service";
 import { NextFunction, Request, Response } from "express";
+import passport from "passport";
+import { checkRoles } from "@app/middlewares/auth.handler";
+import { Trole } from "../types/Troles";
 
 const router = express.Router();
 const service = new ProductsService();
@@ -49,6 +52,8 @@ router.get(
 
 router.post(
   PRODUCT_ROUTES.createOne,
+  passport.authenticate("jwt", { session: false }),
+  checkRoles(Trole.admin),
   validatorHandler(createProductSchema, "body"),
   async (req, res, next) => {
     try {
@@ -63,6 +68,8 @@ router.post(
 
 router.patch(
   PRODUCT_ROUTES.updateOne,
+  passport.authenticate("jwt", { session: false }),
+  checkRoles(Trole.admin),
   validatorHandler(getProductSchema, "params"),
   validatorHandler(updateProductSchema, "body"),
   async (req, res, next) => {
@@ -79,6 +86,8 @@ router.patch(
 
 router.delete(
   PRODUCT_ROUTES.DeleteOne,
+  passport.authenticate("jwt", { session: false }),
+  checkRoles(Trole.admin),
   validatorHandler(getProductSchema, "params"),
   async (req, res, next) => {
     try {

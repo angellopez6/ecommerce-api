@@ -1,6 +1,6 @@
 import orm from "../libs/sequelize";
 import boom from "@hapi/boom";
-import { TaddItemOrderRequest, TCreateOrderRequest } from "@app/types/Torder";
+import { TaddItemOrderRequest, TCreateOrderRequest } from "../types/Torder";
 
 class OrderService {
   async create(data: TCreateOrderRequest) {

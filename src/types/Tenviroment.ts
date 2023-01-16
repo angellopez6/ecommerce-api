@@ -8,4 +8,9 @@ export type Tenviroment = {
   dbPort: string;
   dbUser: string;
   dbPassword: string;
+  jwtSecret: string;
+  authMailUser: string;
+  authMailPassword: string;
+  authMailHost: string;
+  authMailPort: number;
 };

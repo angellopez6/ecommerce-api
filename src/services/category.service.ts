@@ -2,7 +2,7 @@ import orm from "../libs/sequelize";
 import {
   TCreateCategoryRequest,
   TUpdateCategoryRequest,
-} from "@app/types/Tcategory";
+} from "../types/Tcategory";
 import boom from "@hapi/boom";
 
 class CategoryService {

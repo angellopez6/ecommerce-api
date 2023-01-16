@@ -23,6 +23,11 @@ const UserSchema = {
     type: DataTypes.STRING,
     defaultValue: "custumer",
   },
+  recoveryToken: {
+    allowNull: true,
+    field: 'recovery_token',
+    type: DataTypes.TEXT
+  },
   createdAt: {
     allowNull: false,
     field: "created_at",

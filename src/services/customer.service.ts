@@ -3,7 +3,7 @@ import boom from "@hapi/boom";
 import {
   TCreateCustomerRequest,
   TUpdateCustomerRequest,
-} from "@app/types/Tcustomer";
+} from "../types/Tcustomer";
 
 class CustomerService {
   async create(data: TCreateCustomerRequest) {

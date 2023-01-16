@@ -27,6 +27,8 @@ const options: CorsOptions = {
 
 app.use(cors(options));
 
+require("./utils/auth/index");
+
 routerApi(app);
 
 app.use(morgan("dev"));

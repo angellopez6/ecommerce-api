@@ -7,6 +7,5 @@ export type TCreateUserRequest = {
 
 export type TUpdateUserRequest = {
   email?: string;
-  password?: string;
   role?: string;
 };

@@ -1,11 +1,14 @@
-import validatorHandler from "@app/middlewares/validator.handler";
+import validatorHandler from "../middlewares/validator.handler";
 import exrpess from "express";
-import CategoryService from "@app/services/category.service";
+import CategoryService from "../services/category.service";
 import {
   createCategorySchema,
   getCategorySchema,
   updateCategorySchema,
-} from "@app/schemas/categories.schema";
+} from "../schemas/categories.schema";
+import passport from "passport";
+import { checkRoles } from "@app/middlewares/auth.handler";
+import { Trole } from "../types/Troles";
 
 const router = exrpess.Router();
 const service = new CategoryService();
@@ -43,6 +46,8 @@ router.get(
 
 router.post(
   CATEGORY_ROUTES.createOne,
+  passport.authenticate("jwt", { session: false }),
+  checkRoles(Trole.admin),
   validatorHandler(createCategorySchema, "body"),
   async (req, res, next) => {
     try {
@@ -57,6 +62,8 @@ router.post(
 
 router.patch(
   CATEGORY_ROUTES.updateOne,
+  passport.authenticate("jwt", { session: false }),
+  checkRoles(Trole.admin),
   validatorHandler(getCategorySchema, "params"),
   validatorHandler(updateCategorySchema, "body"),
   async (req, res, next) => {
@@ -73,6 +80,8 @@ router.patch(
 
 router.delete(
   CATEGORY_ROUTES.DeleteOne,
+  passport.authenticate("jwt", { session: false }),
+  checkRoles(Trole.admin),
   validatorHandler(getCategorySchema, "params"),
   async (req, res, next) => {
     try {
