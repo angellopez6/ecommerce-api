@@ -1,0 +1,13 @@
+{
+  "preset": "ts-jest",
+  "testEnvironment": "node",
+  "testMatch": ["**/__test__/**/*.ts", "**/?(*.)+(spec|test).ts"],
+  "moduleFileExtensions": ["ts", "js", "json", "node"],
+  "roots": ["<rootDir>/e2e"],
+  "transform": {
+    "^.+\\.ts$": "ts-jest"
+  },
+  "verbose": true,
+  "forceExit": true,
+  "coverageDirectory": "coverage_e2e"
+}

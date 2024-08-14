@@ -9,7 +9,7 @@ import express from "express";
 import ProductsService from "../services/product.service";
 import { NextFunction, Request, Response } from "express";
 import passport from "passport";
-import { checkRoles } from "@app/middlewares/auth.handler";
+import { checkRoles } from "../middlewares/auth.handler";
 import { Trole } from "../types/Troles";
 
 const router = express.Router();

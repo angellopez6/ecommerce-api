@@ -2,7 +2,7 @@ import Joi from "joi";
 import {
   stringPassswordError,
   strongPasswordRegex,
-} from "utils/constants/auth";
+} from "../utils/constants/auth";
 
 const email = Joi.string().email();
 const token = Joi.string();

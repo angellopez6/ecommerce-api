@@ -6,12 +6,15 @@
   "scripts": {
     "dev": "npx nodemon",
     "build": "rimraf ./build && tsc",
-    "production:run": "npm run build && node build/app.js",
+    "production:run": "npm run build && node build/index.js",
     "dockerup": "docker-compose --env-file ./.env up -d",
     "migrations:generate": "sequelize-cli migration:generate --name",
     "migrations:run": "sequelize-cli db:migrate",
     "migrations:revert": "sequelize-cli db:migrate:undo",
-    "migrations:delete": "sequelize-cli db:migrate:undo:all"
+    "migrations:delete": "sequelize-cli db:migrate:undo:all",
+    "e2e": "jest --config ./jest-e2e.json --verbose --forceExit --runInBand",
+    "e2e:coverage": "jest --config ./jest-e2e.json --verbose --forceExit --runInBand --coverage",
+    "load-test": "artillery run load-test.yml"
   },
   "keywords": [
     "TypeScript",
@@ -28,6 +31,7 @@
     "@types/bcrypt": "^5.0.0",
     "@types/cors": "^2.8.13",
     "@types/express": "^4.17.15",
+    "@types/jest": "^29.5.12",
     "@types/jsonwebtoken": "^9.0.1",
     "@types/morgan": "^1.9.4",
     "@types/node": "^7.0.7",
@@ -35,17 +39,21 @@
     "@types/passport": "^1.0.11",
     "@types/passport-jwt": "^3.0.8",
     "@types/passport-local": "^1.0.35",
+    "@types/supertest": "^6.0.2",
     "@typescript-eslint/eslint-plugin": "^5.48.1",
     "@typescript-eslint/parser": "^5.48.1",
     "@zerollup/ts-transform-paths": "^1.7.18",
     "eslint": "^8.31.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-prettier": "^4.2.1",
+    "jest": "^29.7.0",
     "nodemon": "^2.0.20",
     "rimraf": "^3.0.2",
+    "supertest": "^7.0.0",
+    "ts-jest": "^29.2.4",
     "ts-node": "^10.9.1",
     "ttypescript": "^1.5.15",
-    "typescript": "^4.9.4"
+    "typescript": "^4.9.5"
   },
   "dependencies": {
     "@hapi/boom": "^10.0.0",

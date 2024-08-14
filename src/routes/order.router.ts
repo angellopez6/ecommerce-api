@@ -7,7 +7,7 @@ import {
 } from "../schemas/order.schema";
 import OrderService from "../services/order.service";
 import passport from "passport";
-import { checkRoles } from "@app/middlewares/auth.handler";
+import { checkRoles } from "../middlewares/auth.handler";
 import { Trole } from "../types/Troles";
 
 const router = exrpess.Router();

@@ -2,7 +2,7 @@ import { ValidationError } from "sequelize";
 import { middlewareFNC } from "../types/Tmiddlewares";
 
 export const logErrors: middlewareFNC = (err, req, res, next) => {
-  console.error(err);
+  // console.error(err);
   next(err);
 };
 
@@ -24,6 +24,6 @@ export const sequelizeErrorHandler: middlewareFNC = (err, req, res, next) => {
 
 export const boomErrorHandler: middlewareFNC = (err, req, res, next) => {
   if (!err.isBoom) return next(err);
-  const { output } = (err);
+  const { output } = err;
   res.status(output.statusCode).json(output.payload);
 };

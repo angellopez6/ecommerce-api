@@ -3,7 +3,7 @@ import bcrypt from "bcrypt";
 import UserService from "./user.service";
 import jwt from "jsonwebtoken";
 import conf from "../config/config";
-import { mailConfig, mailerTransport } from "utils/constants/mailer";
+import { mailConfig, mailerTransport } from "../utils/constants/mailer";
 import { TmailConfig } from "types/TmailConfig";
 import nodemailer from "nodemailer";
 

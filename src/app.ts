@@ -9,34 +9,39 @@ import {
 } from "./middlewares/error.handler";
 import routerApi from "./routes/index";
 
-// Main fail for virtual store API
-const app = express();
-const APP_VER = process.env.APP_VERSION;
-const PORT = process.env.PORT || 3000;
-const HOST = process.env.HOST;
+const createApp = () => {
+  // Main fail for virtual store API
+  const app = express();
+  app.use(express.json());
 
-app.use(express.json());
+  const whitelist = [
+    "http://localhost:8080",
+    "https://virtual-store.es",
+    "http://127.0.0.1:5173",
+  ];
+  const options: CorsOptions = {
+    origin: (origin = "", cb) => {
+      if (whitelist.includes(origin) || !origin) return cb(null, true);
+      cb(new Error("Not allowed"));
+    },
+  };
 
-const whitelist = ["http://localhost:8080", "https://virtual-store.es"];
-const options: CorsOptions = {
-  origin: (origin = "", cb) => {
-    if (whitelist.includes(origin) || !origin) return cb(null, true);
-    cb(new Error("Not allowed"));
-  },
+  app.use(cors(options));
+
+  require("./utils/auth/index");
+
+  routerApi(app);
+
+  app.get("/hello", (req, res) => {
+    res.status(200).json({ name: "Angel" });
+  });
+
+  app.use(morgan("dev"));
+  app.use(logErrors);
+  app.use(sequelizeErrorHandler);
+  app.use(boomErrorHandler);
+  app.use(errorHandler);
+  return app;
 };
 
-app.use(cors(options));
-
-require("./utils/auth/index");
-
-routerApi(app);
-
-app.use(morgan("dev"));
-app.use(logErrors);
-app.use(sequelizeErrorHandler);
-app.use(boomErrorHandler);
-app.use(errorHandler);
-
-app.listen(PORT, () => {
-  console.log(`Ecommerce API ${APP_VER} running on ${HOST}:${PORT}`);
-});
+export default createApp;

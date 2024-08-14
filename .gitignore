@@ -2,3 +2,5 @@ node_modules
 postgres_data
 mysql_data
 .env
+.env_e2e
+coverage_e2e
